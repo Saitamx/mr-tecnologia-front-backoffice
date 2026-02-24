@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { LayoutDashboard, ShoppingBag, Tag, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, ShoppingBag, Tag, LogOut, Menu, X, Package } from "lucide-react";
 import { isAuthenticated, removeAuthToken } from "@/lib/auth";
 
 interface LayoutProps {
@@ -33,6 +33,7 @@ export const Layout = ({ children }: LayoutProps) => {
 
   const navItems = [
     { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+    { href: '/dashboard/orders', icon: Package, label: 'Órdenes' },
     { href: '/dashboard/products', icon: ShoppingBag, label: 'Productos' },
     { href: '/dashboard/categories', icon: Tag, label: 'Categorías' },
   ];

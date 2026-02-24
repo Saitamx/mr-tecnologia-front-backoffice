@@ -98,3 +98,17 @@ export const categoriesApi = {
   update: (id: string, data: any) => apiClient.patch(`/categories/${id}`, data),
   delete: (id: string) => apiClient.delete(`/categories/${id}`),
 };
+
+export const ordersApi = {
+  getAll: (filters?: { status?: string; paymentStatus?: string }) => {
+    const params = new URLSearchParams();
+    if (filters?.status) params.append('status', filters.status);
+    if (filters?.paymentStatus) params.append('paymentStatus', filters.paymentStatus);
+    const query = params.toString();
+    return apiClient.get(`/orders${query ? `?${query}` : ''}`);
+  },
+  getById: (id: string) => apiClient.get(`/orders/${id}`),
+  getByOrderNumber: (orderNumber: string) => apiClient.get(`/orders/number/${orderNumber}`),
+  updateStatus: (id: string, data: { status: string; paymentStatus?: string }) => 
+    apiClient.patch(`/orders/${id}/status`, data),
+};
