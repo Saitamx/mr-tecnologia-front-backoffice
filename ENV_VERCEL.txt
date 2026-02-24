@@ -1,0 +1,4 @@
+# Vercel Environment Variables
+# Copy these to Vercel project settings
+
+NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
