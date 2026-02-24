@@ -1,5 +1,10 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3004';
 
+// Validar que la URL esté configurada en producción
+if (typeof window !== 'undefined' && !API_BASE_URL.includes('localhost') && !API_BASE_URL.includes('railway') && !API_BASE_URL.includes('vercel')) {
+  console.error('⚠️ NEXT_PUBLIC_API_URL no está configurada correctamente. Configura la variable en Vercel.');
+}
+
 export interface ApiResponse<T> {
   data: T;
   error?: string;

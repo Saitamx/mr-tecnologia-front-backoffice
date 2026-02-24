@@ -1,4 +1,5 @@
 # Vercel Environment Variables
 # Copy these to Vercel project settings
+# IMPORTANTE: Configura esta variable en Vercel -> Settings -> Environment Variables
 
-NEXT_PUBLIC_API_URL=https://your-railway-app.railway.app
+NEXT_PUBLIC_API_URL=https://mr-tecnologia-service-production.up.railway.app
