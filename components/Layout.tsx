@@ -3,7 +3,8 @@
 import { ReactNode, useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { Smartphone, ShoppingBag, Tag, LogOut, Menu, X } from "lucide-react";
+import Image from "next/image";
+import { LayoutDashboard, ShoppingBag, Tag, LogOut, Menu, X } from "lucide-react";
 import { isAuthenticated, removeAuthToken } from "@/lib/auth";
 
 interface LayoutProps {
@@ -31,7 +32,7 @@ export const Layout = ({ children }: LayoutProps) => {
   }
 
   const navItems = [
-    { href: '/dashboard', icon: Smartphone, label: 'Dashboard' },
+    { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
     { href: '/dashboard/products', icon: ShoppingBag, label: 'Productos' },
     { href: '/dashboard/categories', icon: Tag, label: 'Categorías' },
   ];
@@ -46,8 +47,14 @@ export const Layout = ({ children }: LayoutProps) => {
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between p-6 border-b">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center">
-                  <Smartphone className="w-6 h-6 text-white" />
+                <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+                  <Image
+                    src="/logo-mr-tecnologia.jpg"
+                    alt="MR Tecnología"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
                 </div>
                 <span className="font-bold text-lg text-gray-900">MR Tecnología</span>
               </div>
