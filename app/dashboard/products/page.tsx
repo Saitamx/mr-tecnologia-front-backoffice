@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { productsApi, categoriesApi } from "@/lib/api";
 import { Product, Category } from "@/types";
 import { Plus, Edit, Trash2, Search } from "lucide-react";
+import { useNotification } from "@/contexts/NotificationContext";
 import Link from "next/link";
 
 export default function ProductsPage() {
+  const notification = useNotification();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -23,22 +25,26 @@ export default function ProductsPage() {
         setCategories(categoriesData as Category[]);
       } catch (error) {
         console.error('Error fetching data:', error);
+        notification.showError('Error al cargar los productos');
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('¿Estás seguro de eliminar este producto?')) return;
+  const handleDelete = async (id: string, productName: string) => {
+    if (!window.confirm(`¿Estás seguro de eliminar el producto "${productName}"?`)) return;
     
     try {
       await productsApi.delete(id);
       setProducts(products.filter(p => p.id !== id));
-    } catch (error) {
-      alert('Error al eliminar el producto');
+      notification.showSuccess(`Producto "${productName}" eliminado exitosamente`);
+    } catch (error: any) {
+      console.error('Error deleting product:', error);
+      notification.showError(error.message || 'Error al eliminar el producto');
     }
   };
 
@@ -125,7 +131,7 @@ export default function ProductsPage() {
                           <Edit className="w-4 h-4" />
                         </Link>
                         <button
-                          onClick={() => handleDelete(product.id)}
+                          onClick={() => handleDelete(product.id, product.name)}
                           className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />

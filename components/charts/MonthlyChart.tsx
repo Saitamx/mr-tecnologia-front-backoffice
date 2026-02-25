@@ -71,7 +71,7 @@ export function MonthlyChart({ data, type }: MonthlyChartProps) {
           />
         )}
         <Tooltip
-          formatter={(value: any, name: string) => {
+          formatter={(value: any, name?: string) => {
             if (name === "Ingresos") {
               return formatCurrency(value);
             }

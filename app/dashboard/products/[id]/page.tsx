@@ -8,11 +8,13 @@ import { Card } from "@/components/atoms/Card";
 import { Heading } from "@/components/atoms/Heading";
 import { Text } from "@/components/atoms/Text";
 import { Button } from "@/components/atoms/Button";
+import { useNotification } from "@/contexts/NotificationContext";
 import { ArrowLeft, Save, AlertCircle } from "lucide-react";
 
 export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const notification = useNotification();
   const id = params.id as string;
 
   const [product, setProduct] = useState<Product | null>(null);
@@ -34,13 +36,14 @@ export default function ProductDetailPage() {
       } catch (err: any) {
         console.error("Error fetching product:", err);
         setError("No se pudo cargar el producto. Es posible que no exista.");
+        notification.showError("Error al cargar el producto");
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [id]);
+  }, [id, notification]);
 
   const handleChange = (field: keyof Product, value: any) => {
     if (!product) return;
@@ -64,10 +67,13 @@ export default function ProductDetailPage() {
         color: product.color,
         image: product.image,
       });
+      notification.showSuccess(`Producto "${product.name}" actualizado exitosamente`);
       router.push("/dashboard/products");
     } catch (err: any) {
       console.error("Error updating product:", err);
-      setError(err.message || "Error al guardar el producto");
+      const errorMessage = err.message || "Error al guardar el producto";
+      setError(errorMessage);
+      notification.showError(errorMessage);
     } finally {
       setSaving(false);
     }
