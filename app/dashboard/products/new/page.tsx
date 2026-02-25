@@ -35,11 +35,12 @@ export default function NewProductPage() {
     const fetchCategories = async () => {
       try {
         const categoriesData = await categoriesApi.getAll();
-        setCategories(categoriesData as Category[]);
-        if (categoriesData.length > 0) {
+        const categories = categoriesData as Category[];
+        setCategories(categories);
+        if (categories.length > 0) {
           setFormData((prev) => ({
             ...prev,
-            categoryId: categoriesData[0].id,
+            categoryId: categories[0].id,
           }));
         }
       } catch (err: any) {
@@ -51,6 +52,7 @@ export default function NewProductPage() {
     };
 
     fetchCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (field: keyof Product, value: any) => {
