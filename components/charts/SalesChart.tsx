@@ -37,6 +37,13 @@ export function SalesChart({ data }: SalesChartProps) {
     });
   };
 
+  const labelFormatter = (label: any) => {
+    if (typeof label === 'string') {
+      return formatDate(label);
+    }
+    return label;
+  };
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -63,7 +70,7 @@ export function SalesChart({ data }: SalesChartProps) {
             }
             return value;
           }}
-          labelFormatter={formatDate}
+          labelFormatter={labelFormatter}
         />
         <Legend />
         <Line
