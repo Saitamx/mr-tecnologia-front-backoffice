@@ -57,7 +57,7 @@ export function SalesChart({ data }: SalesChartProps) {
           style={{ fontSize: "12px" }}
         />
         <Tooltip
-          formatter={(value: any, name: string) => {
+          formatter={(value: any, name?: string) => {
             if (name === "Ventas") {
               return formatCurrency(value);
             }

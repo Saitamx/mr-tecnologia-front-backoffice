@@ -61,7 +61,7 @@ export function TopProductsChart({ data }: TopProductsChartProps) {
           style={{ fontSize: "12px" }}
         />
         <Tooltip
-          formatter={(value: any, name: string) => {
+          formatter={(value: any, name?: string) => {
             if (name === "Ingresos") {
               return formatCurrency(value);
             }
