@@ -25,14 +25,28 @@ export default function CustomerDetailPage() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const [customerData, ordersData] = await Promise.all([
+      const [customerData, ordersData] = await Promise.allSettled([
         customersApi.getById(id),
         ordersApi.getAll({ customerId: id }),
       ]);
-      setCustomer(customerData as Customer);
-      setOrders(ordersData as Order[]);
+      
+      if (customerData.status === 'fulfilled') {
+        setCustomer(customerData.value as Customer);
+      } else {
+        console.error("Error fetching customer:", customerData.reason);
+        setCustomer(null);
+      }
+      
+      if (ordersData.status === 'fulfilled') {
+        setOrders(ordersData.value as Order[]);
+      } else {
+        console.error("Error fetching orders:", ordersData.reason);
+        setOrders([]);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
+      setCustomer(null);
+      setOrders([]);
     } finally {
       setLoading(false);
     }
