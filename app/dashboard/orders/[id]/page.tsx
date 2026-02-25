@@ -8,7 +8,7 @@ import { Card } from "@/components/atoms/Card";
 import { Heading } from "@/components/atoms/Heading";
 import { Text } from "@/components/atoms/Text";
 import { Button } from "@/components/atoms/Button";
-import { ArrowLeft, Package, CheckCircle, XCircle, Clock, Truck, User, Mail, Phone, MapPin } from "lucide-react";
+import { ArrowLeft, Package, CheckCircle, XCircle, Clock, Truck, User, Mail, Phone, MapPin, PackageSearch } from "lucide-react";
 import Link from "next/link";
 
 const statusColors = {
@@ -168,6 +168,30 @@ export default function OrderDetailPage() {
                   <div>
                     <Text className="text-sm text-gray-600">Dirección</Text>
                     <Text className="font-semibold">{order.shippingAddress}</Text>
+                  </div>
+                </div>
+              )}
+              {order.shippingType && (
+                <div className="flex items-start gap-3">
+                  <Truck className="w-5 h-5 text-gray-400 mt-0.5" />
+                  <div>
+                    <Text className="text-sm text-gray-600">Tipo de envío</Text>
+                    <Text className="font-semibold">
+                      {order.shippingType === 'chilexpress' && 'Chilexpress'}
+                      {order.shippingType === 'correos_chile' && 'Correos de Chile'}
+                      {order.shippingType === 'starken' && 'Starken'}
+                      {order.shippingType === 'motocicleta' && 'Envío en Motocicleta'}
+                      {order.shippingType === 'retiro_tienda' && 'Retiro en Tienda'}
+                    </Text>
+                  </div>
+                </div>
+              )}
+              {order.trackingNumber && (
+                <div className="flex items-start gap-3">
+                  <PackageSearch className="w-5 h-5 text-gray-400 mt-0.5" />
+                  <div>
+                    <Text className="text-sm text-gray-600">Número de seguimiento</Text>
+                    <Text className="font-semibold font-mono">{order.trackingNumber}</Text>
                   </div>
                 </div>
               )}

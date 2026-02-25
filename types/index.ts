@@ -42,6 +42,8 @@ export interface OrderItem {
   updatedAt: string;
 }
 
+export type ShippingType = 'chilexpress' | 'correos_chile' | 'starken' | 'motocicleta' | 'retiro_tienda';
+
 export interface Order {
   id: string;
   orderNumber: string;
@@ -51,6 +53,8 @@ export interface Order {
   customerEmail: string;
   customerPhone: string;
   shippingAddress?: string;
+  shippingType?: ShippingType;
+  trackingNumber?: string;
   subtotal: number;
   discount: number;
   total: number;
