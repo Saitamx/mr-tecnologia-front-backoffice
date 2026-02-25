@@ -45,6 +45,8 @@ export interface OrderItem {
 export interface Order {
   id: string;
   orderNumber: string;
+  customerId?: string;
+  customer?: Customer;
   customerName: string;
   customerEmail: string;
   customerPhone: string;
@@ -59,6 +61,21 @@ export interface Order {
   webpayTransactionId?: string;
   notes?: string;
   items?: OrderItem[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Customer {
+  id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  address?: string;
+  city?: string;
+  region?: string;
+  isActive: boolean;
+  lastLogin?: string;
+  orders?: Order[];
   createdAt: string;
   updatedAt: string;
 }

@@ -100,10 +100,11 @@ export const categoriesApi = {
 };
 
 export const ordersApi = {
-  getAll: (filters?: { status?: string; paymentStatus?: string }) => {
+  getAll: (filters?: { status?: string; paymentStatus?: string; customerId?: string }) => {
     const params = new URLSearchParams();
     if (filters?.status) params.append('status', filters.status);
     if (filters?.paymentStatus) params.append('paymentStatus', filters.paymentStatus);
+    if (filters?.customerId) params.append('customerId', filters.customerId);
     const query = params.toString();
     return apiClient.get(`/orders${query ? `?${query}` : ''}`);
   },
@@ -111,4 +112,22 @@ export const ordersApi = {
   getByOrderNumber: (orderNumber: string) => apiClient.get(`/orders/number/${orderNumber}`),
   updateStatus: (id: string, data: { status: string; paymentStatus?: string }) => 
     apiClient.patch(`/orders/${id}/status`, data),
+};
+
+export const customersApi = {
+  getAll: (filters?: { search?: string; isActive?: boolean; city?: string; region?: string; dateFrom?: string; dateTo?: string }) => {
+    const params = new URLSearchParams();
+    if (filters?.search) params.append('search', filters.search);
+    if (filters?.isActive !== undefined) params.append('isActive', filters.isActive.toString());
+    if (filters?.city) params.append('city', filters.city);
+    if (filters?.region) params.append('region', filters.region);
+    if (filters?.dateFrom) params.append('dateFrom', filters.dateFrom);
+    if (filters?.dateTo) params.append('dateTo', filters.dateTo);
+    const query = params.toString();
+    return apiClient.get(`/customers${query ? `?${query}` : ''}`);
+  },
+  getById: (id: string) => apiClient.get(`/customers/${id}`),
+  getStats: () => apiClient.get('/customers/stats'),
+  update: (id: string, data: any) => apiClient.patch(`/customers/${id}`, data),
+  updateStatus: (id: string, isActive: boolean) => apiClient.patch(`/customers/${id}/status`, { isActive }),
 };

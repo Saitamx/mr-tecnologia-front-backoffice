@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Layout } from "@/components/Layout";
 import { ordersApi } from "@/lib/api";
 import { Order } from "@/types";
 import { Card } from "@/components/atoms/Card";
@@ -68,35 +67,32 @@ export default function OrderDetailPage() {
       fetchOrder();
     } catch (error) {
       console.error("Error updating order:", error);
-      alert("Error al actualizar el estado de la orden");
+      // Error será manejado por el sistema de notificaciones si se implementa
+      console.error("Error al actualizar el estado de la orden");
     }
   };
 
   if (loading) {
     return (
-      <Layout>
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-        </div>
-      </Layout>
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+      </div>
     );
   }
 
   if (!order) {
     return (
-      <Layout>
-        <div className="text-center py-12">
-          <Heading level={2}>Orden no encontrada</Heading>
-          <Link href="/dashboard/orders">
-            <Button className="mt-4">Volver a órdenes</Button>
-          </Link>
-        </div>
-      </Layout>
+      <div className="text-center py-12">
+        <Heading level={2}>Orden no encontrada</Heading>
+        <Link href="/dashboard/orders">
+          <Button className="mt-4">Volver a órdenes</Button>
+        </Link>
+      </div>
     );
   }
 
   return (
-    <Layout>
+    <div>
       <div className="p-6">
         <Link href="/dashboard/orders">
           <Button variant="ghost" size="sm" className="mb-6">
@@ -279,6 +275,6 @@ export default function OrderDetailPage() {
           </div>
         </Card>
       </div>
-    </Layout>
+    </div>
   );
 }

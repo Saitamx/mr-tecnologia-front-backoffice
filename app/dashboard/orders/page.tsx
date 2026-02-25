@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Layout } from "@/components/Layout";
 import { ordersApi } from "@/lib/api";
 import { Order } from "@/types";
 import { Card } from "@/components/atoms/Card";
@@ -84,16 +83,14 @@ export default function OrdersPage() {
 
   if (loading) {
     return (
-      <Layout>
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-        </div>
-      </Layout>
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+      </div>
     );
   }
 
   return (
-    <Layout>
+    <div>
       <div className="p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
           <Heading level={1}>Órdenes</Heading>
@@ -219,6 +216,6 @@ export default function OrdersPage() {
           </div>
         )}
       </div>
-    </Layout>
+    </div>
   );
 }
