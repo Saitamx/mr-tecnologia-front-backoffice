@@ -131,3 +131,11 @@ export const customersApi = {
   update: (id: string, data: any) => apiClient.patch(`/customers/${id}`, data),
   updateStatus: (id: string, isActive: boolean) => apiClient.patch(`/customers/${id}/status`, { isActive }),
 };
+
+export const statsApi = {
+  getDashboardStats: () => apiClient.get('/stats/dashboard'),
+  getSalesByPeriod: (days?: number) => apiClient.get(`/stats/sales-by-period${days ? `?days=${days}` : ''}`),
+  getTopProducts: (limit?: number) => apiClient.get(`/stats/top-products${limit ? `?limit=${limit}` : ''}`),
+  getOrdersByMonth: (months?: number) => apiClient.get(`/stats/orders-by-month${months ? `?months=${months}` : ''}`),
+  getCustomersByMonth: (months?: number) => apiClient.get(`/stats/customers-by-month${months ? `?months=${months}` : ''}`),
+};
